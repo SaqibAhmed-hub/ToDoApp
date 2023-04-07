@@ -1,14 +1,11 @@
 
 import React from 'react';
-import { View } from "react-native";
+import AppContainer from './src/router/routes';
 
 
-function App(): JSX.Element {
-
+function App(){
   return (
-    <View>
-
-    </View>
+    <AppContainer />
   )
 }
 
