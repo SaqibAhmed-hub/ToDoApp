@@ -39,16 +39,26 @@ const AppContainer = () => {
                 tabBarOptions={{
                     activeTintColor: '#0080ff',
                     inactiveTintColor: '#777777',
-                    labelStyle: { fontSize: 15, fontWeight: 'bold' }
+                    labelStyle: { fontSize: 15, fontWeight: 'bold' },
+                    tabBarAllowFontScaling: true,
                 }}
             >
                 <TabStack.Screen
                     name="Todo"
                     component={TodoScreen}
+                    options={{
+                        headerShown: false,
+                        tabBarLabel: 'Shop',
+                    }}
+                    
                 ></TabStack.Screen>
                 <TabStack.Screen
                     name="Done"
                     component={DoneScreen}
+                    options={{
+                        headerShown: false,
+                        tabBarLabel: 'Shop',
+                    }}
                 ></TabStack.Screen>
             </TabStack.Navigator>
         );
@@ -81,7 +91,7 @@ const AppContainer = () => {
                     name="HomeScreen"
                     component={Home}
                     options={{
-                        headerShown: false,
+                        headerTitle : 'Task'
                     }}
                 />
                 <RootStack.Screen

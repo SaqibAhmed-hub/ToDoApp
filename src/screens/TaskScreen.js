@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTasks } from '../redux/actions/task_action';
 
@@ -12,9 +12,12 @@ const TaskScreen = ({ navigation }) => {
 
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
+    const [done, setDone] = useState(false);
 
     useEffect(() => {
-        getTask();
+        navigation.addListener('focus', () => {
+            getTask();
+        });
     }, [])
 
     const getTask = () => {
@@ -22,6 +25,7 @@ const TaskScreen = ({ navigation }) => {
         if (Task) {
             setTitle(Task.Title);
             setDesc(Task.Desc);
+            setDone(Task.Done);
         }
     }
 
@@ -33,7 +37,8 @@ const TaskScreen = ({ navigation }) => {
                 var Task = {
                     ID: taskID,
                     Title: title,
-                    Desc: desc
+                    Desc: desc,
+                    Done: done,
                 }
                 const index = tasks.findIndex(task => task.ID === taskID);
                 let newTasks = [];
@@ -66,7 +71,7 @@ const TaskScreen = ({ navigation }) => {
             />
             <TextInput
                 value={desc}
-                style={styles.input}
+                style={styles.noteInput}
                 placeholder='Description'
                 multiline
                 onChangeText={(value) => setDesc(value)}
@@ -78,7 +83,9 @@ const TaskScreen = ({ navigation }) => {
                         backgroundColor: '#0080ff',
                         borderRadius: 8,
                         marginHorizontal: 16,
-                        marginTop: 10
+                        marginTop: 10,
+                        width: 250,
+  
                     }}>
                     <Text style={styles.button}> Save Task</Text>
                 </View>
@@ -106,10 +113,24 @@ const styles = StyleSheet.create({
         margin: 10,
         paddingHorizontal: 10,
     },
+    noteInput: {
+        width: '100%',
+        borderWidth: 1,
+        borderColor: '#555555',
+        borderRadius: 10,
+        backgroundColor: '#ffffff',
+        fontSize: 16,
+        margin: 10,
+        paddingHorizontal: 10,
+        height: 250,
+        textAlign: 'left',
+    },
     button: {
         padding: 10,
         color: 'white',
         fontSize: 16,
+        textAlign : 'center',
+        fontWeight : 'bold'
 
     }
 
